@@ -1,36 +1,36 @@
 "use client"
 
-import { useLang } from "@/components/language-provider"
+const FEATURES = [
+  "Быстрый отклик",
+  "Без менеджеров",
+  "Напрямую",
+  "Чистый UX",
+  "Реальные результаты",
+  "Mobile-first",
+  "Тёмный дизайн",
+  "Фокус на бизнес",
+]
 
 export function FeatureStrip() {
-  const { t } = useLang()
-
-  const tags = [
-    t("Быстрый отклик", "Fast response"),
-    t("Без менеджеров", "No managers"),
-    t("Напрямую", "Direct work"),
-    t("Чистый UX", "Clean UX"),
-    t("Реальные результаты", "Real results"),
-    t("Mobile-first", "Mobile-first"),
-    t("Тёмный дизайн", "Dark mode native"),
-    t("Фокус на бизнес", "Business focused"),
-  ]
-
-  const allTags = [...tags, ...tags]
+  const items = [...FEATURES, ...FEATURES]
 
   return (
-    <section className="relative overflow-hidden border-y border-border py-6">
-      <div className="pointer-events-none absolute top-0 left-0 z-10 h-full w-20 bg-gradient-to-r from-background to-transparent" />
-      <div className="pointer-events-none absolute top-0 right-0 z-10 h-full w-20 bg-gradient-to-l from-background to-transparent" />
+    <section className="relative overflow-hidden border-y border-border/50 bg-secondary/30 py-4">
+      {/* Left fade */}
+      <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-background to-transparent" />
 
-      <div className="animate-marquee flex w-max gap-4">
-        {allTags.map((tag, i) => (
+      {/* Right fade */}
+      <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-background to-transparent" />
+
+      {/* Marquee */}
+      <div className="animate-marquee flex whitespace-nowrap">
+        {items.map((feature, i) => (
           <span
-            key={`${tag}-${i}`}
-            className="inline-flex shrink-0 items-center gap-2 rounded-full border border-border bg-secondary px-5 py-2 text-sm font-medium text-foreground"
+            key={`${feature}-${i}`}
+            className="mx-6 text-sm font-medium text-muted-foreground"
           >
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-            {tag}
+            {feature}
+            <span className="ml-6 text-primary/40">•</span>
           </span>
         ))}
       </div>

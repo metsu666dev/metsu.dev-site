@@ -2,125 +2,18 @@
 
 import { useAccent, type AccentMode } from "@/components/accent-provider"
 
-const THEME_CONFIG: Record<AccentMode, { h: number; bleeds: React.CSSProperties[] }> = {
-  violet: {
-    h: 260,
-    bleeds: [
-      // Bottom center
-      {
-        position: "absolute",
-        bottom: "5%",
-        left: "25%",
-        right: "25%",
-        height: "35%",
-        background: "radial-gradient(ellipse at 50% 100%, hsla(260, 70%, 50%, 0.18) 0%, transparent 70%)",
-        filter: "blur(60px)",
-      },
-      // Horizon line
-      {
-        position: "absolute",
-        left: "10%",
-        right: "10%",
-        bottom: "20%",
-        height: "2px",
-        background: "linear-gradient(90deg, transparent 0%, hsla(260, 60%, 55%, 0.12) 30%, hsla(260, 70%, 60%, 0.16) 50%, hsla(260, 60%, 55%, 0.12) 70%, transparent 100%)",
-        filter: "blur(1px)",
-      },
-    ],
-  },
-  pink: {
-    h: 340,
-    bleeds: [
-      // Left diagonal
-      {
-        position: "absolute",
-        bottom: "20%",
-        left: "0%",
-        width: "40%",
-        height: "50%",
-        background: "radial-gradient(ellipse at 20% 70%, hsla(340, 70%, 50%, 0.16) 0%, transparent 60%)",
-        filter: "blur(70px)",
-        transform: "rotate(-15deg)",
-      },
-      // Top-right haze
-      {
-        position: "absolute",
-        top: "5%",
-        right: "5%",
-        width: "35%",
-        height: "30%",
-        background: "radial-gradient(ellipse at 70% 30%, hsla(340, 60%, 45%, 0.14) 0%, transparent 65%)",
-        filter: "blur(55px)",
-      },
-    ],
-  },
-  green: {
-    h: 150,
-    bleeds: [
-      // Top center
-      {
-        position: "absolute",
-        top: "10%",
-        left: "20%",
-        right: "20%",
-        height: "40%",
-        background: "radial-gradient(ellipse at 50% 20%, hsla(150, 65%, 45%, 0.15) 0%, transparent 65%)",
-        filter: "blur(65px)",
-      },
-      // Horizontal soft glow
-      {
-        position: "absolute",
-        top: "40%",
-        left: "5%",
-        right: "5%",
-        height: "20%",
-        background: "linear-gradient(90deg, transparent 0%, hsla(150, 55%, 40%, 0.10) 20%, hsla(150, 60%, 45%, 0.14) 50%, hsla(150, 55%, 40%, 0.10) 80%, transparent 100%)",
-        filter: "blur(40px)",
-      },
-    ],
-  },
+const BG_IMAGES: Record<AccentMode, string> = {
+  violet: "/backgrounds/violet.png",
+  pink: "/backgrounds/pink.png",
+  green: "/backgrounds/green.png",
 }
 
-const skylineSvg = encodeURIComponent(
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 400" preserveAspectRatio="none">
-    <rect x="0" y="0" width="1440" height="400" fill="transparent"/>
-    <rect x="40" y="180" width="50" height="220" fill="white"/>
-    <rect x="95" y="140" width="35" height="260" fill="white"/>
-    <rect x="135" y="200" width="60" height="200" fill="white"/>
-    <rect x="200" y="100" width="30" height="300" fill="white"/>
-    <rect x="235" y="160" width="55" height="240" fill="white"/>
-    <rect x="295" y="220" width="40" height="180" fill="white"/>
-    <rect x="380" y="120" width="25" height="280" fill="white"/>
-    <rect x="410" y="180" width="70" height="220" fill="white"/>
-    <rect x="485" y="80" width="35" height="320" fill="white"/>
-    <rect x="525" y="200" width="45" height="200" fill="white"/>
-    <rect x="620" y="60" width="40" height="340" fill="white"/>
-    <rect x="665" y="150" width="55" height="250" fill="white"/>
-    <rect x="725" y="40" width="30" height="360" fill="white"/>
-    <rect x="760" y="130" width="50" height="270" fill="white"/>
-    <rect x="850" y="170" width="60" height="230" fill="white"/>
-    <rect x="915" y="90" width="35" height="310" fill="white"/>
-    <rect x="955" y="210" width="45" height="190" fill="white"/>
-    <rect x="1005" y="150" width="30" height="250" fill="white"/>
-    <rect x="1080" y="190" width="55" height="210" fill="white"/>
-    <rect x="1140" y="110" width="30" height="290" fill="white"/>
-    <rect x="1175" y="220" width="65" height="180" fill="white"/>
-    <rect x="1245" y="160" width="40" height="240" fill="white"/>
-    <rect x="1290" y="200" width="50" height="200" fill="white"/>
-    <rect x="1345" y="240" width="55" height="160" fill="white"/>
-    <rect x="203" y="80" width="4" height="20" fill="white"/>
-    <rect x="487" y="55" width="3" height="25" fill="white"/>
-    <rect x="727" y="15" width="3" height="25" fill="white"/>
-    <rect x="622" y="35" width="4" height="25" fill="white"/>
-    <rect x="917" y="65" width="3" height="25" fill="white"/>
-    <rect x="1142" y="85" width="3" height="25" fill="white"/>
-  </svg>`,
-)
+const HUE: Record<AccentMode, number> = { violet: 260, pink: 340, green: 150 }
 
 export function NeonBackground() {
   const { accent } = useAccent()
-  const config = THEME_CONFIG[accent]
-  const h = config.h
+  const h = HUE[accent]
+  const bgImage = BG_IMAGES[accent]
 
   return (
     <div
@@ -128,35 +21,30 @@ export function NeonBackground() {
       aria-hidden="true"
       style={{ background: "#08080C" }}
     >
-      {/* Layer 1: Base gradient per theme */}
+      {/* Layer 1: Theme background image (blurred) */}
       <div
         className="absolute inset-0 transition-all duration-700"
         style={{
-          background: `radial-gradient(ellipse 120% 80% at 50% 100%, hsla(${h}, 25%, 8%, 0.5) 0%, transparent 55%), 
-                       radial-gradient(ellipse 80% 50% at 50% 50%, hsla(${h}, 18%, 5%, 0.35) 0%, transparent 65%)`,
-        }}
-      />
-
-      {/* Layer 2: City silhouette */}
-      <div
-        className="absolute inset-x-0 bottom-0 transition-all duration-700"
-        style={{
-          height: "50%",
-          backgroundImage: `url("data:image/svg+xml,${skylineSvg}")`,
+          backgroundImage: `url("${bgImage}")`,
           backgroundSize: "cover",
-          backgroundPosition: "bottom center",
-          backgroundRepeat: "no-repeat",
-          opacity: 0.15,
-          filter: "blur(5px)",
+          backgroundPosition: "center bottom",
+          filter: "blur(12px) saturate(1.2)",
+          opacity: 0.4,
+          transform: "scale(1.05)",
+          willChange: "opacity, filter",
         }}
       />
 
-      {/* Layer 3: Theme-specific color bleeds */}
-      {config.bleeds.map((style, i) => (
-        <div key={i} className="transition-all duration-700" style={style as React.CSSProperties} />
-      ))}
+      {/* Layer 2: Base radial gradient */}
+      <div
+        className="absolute inset-0 transition-all duration-700"
+        style={{
+          background: `radial-gradient(ellipse 120% 80% at 50% 100%, hsla(${h}, 25%, 8%, 0.3) 0%, transparent 55%), 
+                       radial-gradient(ellipse 80% 50% at 50% 50%, hsla(${h}, 18%, 5%, 0.25) 0%, transparent 65%)`,
+        }}
+      />
 
-      {/* Layer 4: Faint grid */}
+      {/* Layer 3: Faint grid */}
       <div
         className="absolute inset-0"
         style={{
@@ -165,7 +53,7 @@ export function NeonBackground() {
         }}
       />
 
-      {/* Layer 5: Very subtle grain */}
+      {/* Layer 4: Grain noise */}
       <div
         className="animate-grain absolute -inset-[50%]"
         style={{
@@ -176,10 +64,10 @@ export function NeonBackground() {
         }}
       />
 
-      {/* Layer 6: Content overlay (0.62 opacity) */}
-      <div className="absolute inset-0" style={{ background: "rgba(8, 8, 12, 0.62)" }} />
+      {/* Layer 5: Content overlay */}
+      <div className="absolute inset-0" style={{ background: "rgba(8, 8, 12, 0.50)" }} />
 
-      {/* Layer 7: Vignette */}
+      {/* Layer 6: Vignette */}
       <div
         className="absolute inset-0"
         style={{
@@ -187,7 +75,7 @@ export function NeonBackground() {
         }}
       />
 
-      {/* Layer 8: Top gradient for header */}
+      {/* Layer 7: Top gradient for header */}
       <div
         className="absolute inset-x-0 top-0"
         style={{

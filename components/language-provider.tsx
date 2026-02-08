@@ -4,13 +4,13 @@ import { createContext, useContext, useState, useCallback, type ReactNode } from
 
 type Lang = "ru" | "en"
 
-interface LanguageContextType {
+interface LanguageContextValue {
   lang: Lang
   toggleLang: () => void
   t: (ru: string, en: string) => string
 }
 
-const LanguageContext = createContext<LanguageContextType | null>(null)
+const LanguageContext = createContext<LanguageContextValue | null>(null)
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>("ru")
@@ -32,7 +32,9 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 }
 
 export function useLang() {
-  const ctx = useContext(LanguageContext)
-  if (!ctx) throw new Error("useLang must be used within LanguageProvider")
-  return ctx
+  const context = useContext(LanguageContext)
+  if (!context) {
+    throw new Error("useLang must be used within LanguageProvider")
+  }
+  return context
 }

@@ -1,49 +1,71 @@
 "use client"
 
 import { useEffect, useRef } from "react"
-import { MessageSquare, CalendarCheck, MousePointerClick, Zap } from "lucide-react"
+import { MessageSquare, Globe, Layout, Plug, Zap } from "lucide-react"
 import { useLang } from "@/components/language-provider"
 
-interface ServiceItem {
-  icon: typeof MessageSquare
-  problem: { ru: string; en: string }
-  solution: { ru: string; en: string }
-}
-
-const services: ServiceItem[] = [
+const SERVICES = [
   {
     icon: MessageSquare,
-    problem: { ru: "Бизнес теряет заказы", en: "Business is losing orders" },
-    solution: { ru: "Автоматизирую через Telegram", en: "I automate via Telegram" },
+    titleRu: "Telegram Боты",
+    titleEn: "Telegram Bots",
+    descRu: "Кастомные боты для бизнеса: автоматизация, платежи, CRM интеграция",
+    descEn: "Custom bots for business: automation, payments, CRM integration",
+    benefitRu: "снижает нагрузку на менеджеров и повышает конверсию в заявки",
+    benefitEn: "reduces workload on managers and increases lead conversion",
+    price: "от 25 000 ₽",
   },
   {
-    icon: CalendarCheck,
-    problem: { ru: "Запись и заявки в хаосе", en: "Bookings and leads are a mess" },
-    solution: { ru: "Навожу порядок", en: "I bring order" },
+    icon: Globe,
+    titleRu: "Сайты-визитки",
+    titleEn: "Business Cards",
+    descRu: "Быстрые и понятные лендинги и визитки для бизнеса и личного бренда",
+    descEn: "Fast and clear landing pages for business and personal brand",
+    benefitRu: "даёт присутствие в интернете и точку входа для клиентов",
+    benefitEn: "provides internet presence and entry point for clients",
+    price: "от 5 000 ₽",
   },
   {
-    icon: MousePointerClick,
-    problem: { ru: "Сайт есть — заявок нет", en: "Website exists, no leads" },
-    solution: { ru: "Делаю понятный UX", en: "I build clear UX" },
+    icon: Layout,
+    titleRu: "Масштабные сайты",
+    titleEn: "Large-scale Websites",
+    descRu: "Полноценные веб-приложения, дашборды и админ-панели на React/Next.js",
+    descEn: "Full-fledged web apps, dashboards and admin panels on React/Next.js",
+    benefitRu: "даёт контроль — админка, статистика, управление данными",
+    benefitEn: "gives control — admin panel, statistics, data management",
+    price: "от 40 000 ₽",
+  },
+  {
+    icon: Plug,
+    titleRu: "API Интеграции",
+    titleEn: "API Integrations",
+    descRu: "Подключение любых сервисов, платёжных систем, баз данных",
+    descEn: "Connecting any services, payment systems, databases",
+    benefitRu: "связывает сервисы и убирает ручные действия",
+    benefitEn: "links services and removes manual actions",
+    price: "от 15 000 ₽",
   },
   {
     icon: Zap,
-    problem: { ru: "Ручная работа жрёт время", en: "Manual work eats time" },
-    solution: { ru: "Автоматизирую процессы", en: "I automate processes" },
+    titleRu: "Автоматизация",
+    titleEn: "Automation",
+    descRu: "Автоматизация бизнес-процессов, уведомления, отчёты",
+    descEn: "Business process automation, notifications, reports",
+    benefitRu: "экономит время и уменьшает ошибки в процессах",
+    benefitEn: "saves time and reduces errors in processes",
+    price: "от 25 000 ₽",
   },
 ]
 
 export function Services() {
   const sectionRef = useRef<HTMLElement>(null)
-  const { lang, t } = useLang()
+  const { t } = useLang()
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in-up")
-          }
+          if (entry.isIntersecting) entry.target.classList.add("animate-fade-in-up")
         }
       },
       { threshold: 0.1 },
@@ -56,56 +78,53 @@ export function Services() {
   return (
     <section ref={sectionRef} id="services" className="relative px-6 py-24 lg:px-8">
       <div className="mx-auto max-w-6xl">
-        {/* Section heading */}
-        <div className="mb-16 text-center">
-          <p
-            data-animate
-            className="mb-3 text-sm font-semibold uppercase tracking-widest text-primary opacity-0"
-            style={{ animationDelay: "0s" }}
-          >
-            {t("Польза", "Value")}
-          </p>
-          <h2
-            data-animate
-            className="text-balance text-3xl font-bold tracking-tight text-foreground opacity-0 md:text-5xl"
-            style={{ animationDelay: "0.1s" }}
-          >
-            {t("Чем я могу быть полезен", "How I can help")}
+        <div className="mb-12 text-center">
+          <h2 data-animate className="text-balance text-3xl font-bold tracking-tight text-foreground opacity-0 md:text-4xl" style={{ animationDelay: "0s" }}>
+            {t("Мои услуги", "My Services")}
           </h2>
+          <p data-animate className="mt-4 text-lg text-muted-foreground opacity-0" style={{ animationDelay: "0.1s" }}>
+            {t("Создаю решения, которые работают на вас 24/7", "Building solutions that work for you 24/7")}
+          </p>
         </div>
 
-        {/* Cards grid */}
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((service, i) => (
-            <div
-              key={service.problem.ru}
-              data-animate
-              className="group relative flex flex-col overflow-hidden rounded-xl border border-border bg-card/80 p-6 opacity-0 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 glow-border-accent lg:p-8"
-              style={{ animationDelay: `${0.15 + i * 0.1}s` }}
-            >
-              {/* Subtle inner gradient */}
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {SERVICES.map((service, i) => {
+            const Icon = service.icon
+            const isLastTwo = i >= 3
+            return (
               <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                style={{
-                  background:
-                    "radial-gradient(ellipse at 50% 0%, hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.05), transparent 70%)",
-                }}
-              />
-              <div className="relative">
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg bg-secondary text-primary transition-colors duration-300 group-hover:bg-primary/10">
-                  <service.icon className="h-5 w-5" />
+                key={service.titleRu}
+                data-animate
+                className={`flex flex-col rounded-xl border border-white/[0.06] bg-white/[0.03] p-6 opacity-0 backdrop-blur-xl shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)] transition-all duration-300 hover:border-primary/25 ${isLastTwo ? "lg:col-span-1 lg:last:col-start-2 lg:[&:nth-child(4)]:col-start-1 lg:[&:nth-child(4)]:justify-self-end lg:[&:nth-child(5)]:justify-self-start" : ""}`}
+                style={{ animationDelay: `${0.15 + i * 0.08}s` }}
+              >
+                <div className="mb-4 w-fit rounded-lg border border-primary/30 p-3">
+                  <Icon className="h-5 w-5 text-primary" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-foreground">
-                  {lang === "ru" ? service.problem.ru : service.problem.en}
+
+                <h3 className="mb-2 text-lg font-bold text-foreground">
+                  {t(service.titleRu, service.titleEn)}
                 </h3>
-                <p className="text-sm font-medium leading-relaxed text-primary">
-                  {"→ "}
-                  {lang === "ru" ? service.solution.ru : service.solution.en}
+
+                <p className="mb-4 text-sm text-muted-foreground">
+                  {t(service.descRu, service.descEn)}
                 </p>
+
+                <div className="mb-4 rounded-lg border border-primary/15 bg-primary/5 p-3">
+                  <p className="text-sm">
+                    <span className="font-bold text-primary">{t("Польза:", "Benefit:")}</span>{" "}
+                    <span className="text-foreground/80">{t(service.benefitRu, service.benefitEn)}</span>
+                  </p>
+                </div>
+
+                <div className="mt-auto">
+                  <span className="inline-block rounded-full border border-primary/30 px-4 py-1.5 text-sm font-medium text-primary">
+                    {service.price}
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
