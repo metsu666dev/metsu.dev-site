@@ -1,0 +1,9 @@
+{
+  "name": "metsu.dev",
+  "short_name": "metsu.dev",
+  "description": "Telegram bots, websites & mini apps that bring clients, not just visuals.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B0B0E",
+  "theme_color": "#0B0B0E"
+}
