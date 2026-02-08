@@ -18,7 +18,7 @@ export function Header() {
 
   const navLinks = [
     { href: "#services", label: t("Услуги", "Services") },
-    { href: "#projects", label: t("Проекты", "Projects") },
+    { href: "#work", label: t("В разработке", "In progress") },
     { href: "#cta", label: t("Контакт", "Contact") },
   ]
 
@@ -52,11 +52,10 @@ export function Header() {
                 key={opt.mode}
                 type="button"
                 onClick={() => setAccent(opt.mode)}
-                className={`flex h-7 w-7 items-center justify-center rounded-md text-xs font-bold transition-all ${
-                  accent === opt.mode
+                className={`flex h-7 w-7 items-center justify-center rounded-md text-xs font-bold transition-all ${accent === opt.mode
                     ? "bg-card text-foreground shadow-sm"
                     : "text-muted-foreground hover:text-foreground"
-                }`}
+                  }`}
                 aria-label={`${opt.mode} accent`}
               >
                 <span className={`h-2.5 w-2.5 rounded-full ${opt.dot}`} />
@@ -84,11 +83,8 @@ export function Header() {
                 key={opt.mode}
                 type="button"
                 onClick={() => setAccent(opt.mode)}
-                className={`flex h-7 w-7 items-center justify-center rounded-md transition-all ${
-                  accent === opt.mode
-                    ? "bg-card shadow-sm"
-                    : ""
-                }`}
+                className={`flex h-7 w-7 items-center justify-center rounded-md transition-all ${accent === opt.mode ? "bg-card shadow-sm" : ""
+                  }`}
                 aria-label={`${opt.mode} accent`}
               >
                 <span className={`h-2 w-2 rounded-full ${opt.dot}`} />

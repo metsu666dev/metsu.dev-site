@@ -35,41 +35,45 @@ export function About() {
         </p>
         <h2
           data-animate
-          className="mb-12 text-balance text-3xl font-bold tracking-tight text-foreground opacity-0 md:text-5xl"
+          className="mb-10 text-balance text-3xl font-bold tracking-tight text-foreground opacity-0 md:text-5xl"
           style={{ animationDelay: "0.1s" }}
         >
           {t("Как я работаю", "How I work")}
         </h2>
 
         <div data-animate className="opacity-0" style={{ animationDelay: "0.2s" }}>
-          <div className="flex flex-col gap-3">
-            <p className="text-xl leading-relaxed text-foreground/90 md:text-2xl">
-              {t("Работаю напрямую.", "I work directly.")}
+          <div className="mx-auto flex max-w-2xl flex-col gap-4 text-left">
+            <p className="text-lg leading-relaxed text-foreground/90 md:text-xl">
+              Работаю напрямую с клиентом — это ускоряет процесс и убирает искажения.
             </p>
-            <p className="text-xl leading-relaxed text-foreground/90 md:text-2xl">
-              {t("Без менеджеров.", "No managers.")}
+            <p className="text-lg leading-relaxed text-foreground/90 md:text-xl">
+              Фокусируюсь на задаче и результате, а не на формальностях.
             </p>
-            <p className="text-xl leading-relaxed text-foreground/90 md:text-2xl">
-              {t("Без лишних созвонов.", "No unnecessary calls.")}
+            <p className="text-lg leading-relaxed text-foreground/90 md:text-xl">
+              Без менеджеров и лишней бюрократии.
+            </p>
+            <p className="text-lg leading-relaxed text-foreground/90 md:text-xl">
+              Без созвонов — только простое и понятное общение в чате.
+            </p>
+            <p className="text-lg leading-relaxed text-foreground/90 md:text-xl">
+              Решения — практичные и применимые.
             </p>
 
-            <div className="my-4">
-              <p className="text-2xl font-bold text-foreground md:text-3xl">
-                <span className="text-primary">{t("Скорость", "Speed")}</span>
-                {". "}
-                <span className="text-primary">{t("Ясность", "Clarity")}</span>
-                {". "}
-                <span className="text-primary">{t("Результат", "Result")}</span>
-                {"."}
-              </p>
+            <div className="mt-2 inline-flex items-center justify-center">
+              <span className="rounded-full border border-primary/25 bg-primary/10 px-5 py-2 text-base font-semibold tracking-tight text-foreground md:text-lg">
+                <span className="text-primary">ТЗ</span>
+                <span className="text-foreground/70"> → </span>
+                <span className="text-primary">Процесс</span>
+                <span className="text-foreground/70"> → </span>
+                <span className="text-primary">Результат</span>
+              </span>
             </div>
 
-            <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-              {t(
-                "Если что-то не приносит ценность — я это не делаю.",
-                "If something doesn\u2019t bring value \u2014 I don\u2019t build it.",
-              )}
-            </p>
+            <div className="mt-2">
+              <p className="text-lg leading-relaxed text-foreground/90 md:text-xl">
+                Запускаю продукты, которые приносят пользу бизнесу.
+              </p>
+            </div>
           </div>
         </div>
       </div>

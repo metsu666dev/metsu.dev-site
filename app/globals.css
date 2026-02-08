@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -31,12 +33,14 @@
     --ring: 251 100% 68%;
     --radius: 0.625rem;
 
-    /* Dynamic accent values — overridden by AccentProvider JS */
     --accent-hex: #7A5CFF;
     --accent-h: 251;
     --accent-s: 100%;
     --accent-l: 68%;
     --grid-color: rgba(122, 92, 255, 0.03);
+
+    --font-sans: 'Manrope', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
   }
 }
 
@@ -44,97 +48,141 @@
   * {
     @apply border-border;
   }
+
+  html {
+    font-family: var(--font-sans);
+  }
+
   body {
     @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+  }
+
+  code,
+  pre,
+  .font-mono {
+    font-family: var(--font-mono);
   }
 }
 
-/* ── Dynamic glow effects (subtle) ────────────────── */
+/* ── Subtle glow effects ────────────────── */
 .glow-accent {
   box-shadow:
-    0 0 12px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.1),
-    0 0 40px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.03);
+    0 0 8px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.06),
+    0 0 20px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.02);
 }
+
 .glow-accent-hover:hover {
   box-shadow:
-    0 0 16px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.15),
-    0 0 50px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.05);
-}
-.glow-border-accent:hover {
-  box-shadow:
-    0 0 10px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.06),
-    inset 0 0 10px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.02);
+    0 0 10px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.08),
+    0 0 28px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.03);
 }
 
 /* ── Marquee ──────────────────────────────────────── */
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
+
 .animate-marquee {
   animation: marquee 25s linear infinite;
 }
 
 /* ── Fade in on scroll ────────────────────────────── */
 @keyframes fade-in-up {
-  from { opacity: 0; transform: translateY(30px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
+
 .animate-fade-in-up {
   animation: fade-in-up 0.7s ease-out forwards;
 }
 
 /* ── Cursor blink ─────────────────────────────────── */
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
+
 .animate-blink {
   animation: blink 1s step-end infinite;
 }
 
-/* ── .dev glow (subtle) ───────────────────────────── */
-@keyframes dev-glow {
-  0%, 100% {
-    text-shadow:
-      0 0 6px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.12),
-      0 0 20px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.05);
+/* ── Brand underscore blink (1.2s) ─────────────────── */
+@keyframes underscore-blink {
+
+  0%,
+  100% {
+    opacity: 1;
   }
+
   50% {
-    text-shadow:
-      0 0 10px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.18),
-      0 0 35px hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.08);
+    opacity: 0;
   }
-}
-.animate-dev-glow {
-  animation: dev-glow 5s ease-in-out infinite;
 }
 
-/* ── Underline grow ───────────────────────────────── */
-@keyframes underline-grow {
-  from { transform: scaleX(0); }
-  to   { transform: scaleX(1); }
-}
-.animate-underline-grow {
-  animation: underline-grow 0.8s ease-out 1.2s forwards;
+.brand-cursor::after {
+  content: "_";
+  animation: underscore-blink 1.2s step-end infinite;
 }
 
 /* ── Slide in (mobile nav) ────────────────────────── */
 @keyframes slide-in {
-  from { transform: translateX(100%); opacity: 0; }
-  to   { transform: translateX(0); opacity: 1; }
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
+
 .animate-slide-in {
   animation: slide-in 0.25s ease-out forwards;
 }
 
 /* ── Scanning line for About section ──────────────── */
 @keyframes scan-line {
-  0%   { top: 0%; opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 1; }
-  100% { top: 100%; opacity: 0; }
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
 }
+
 .scan-line::before {
   content: "";
   position: absolute;
@@ -143,33 +191,62 @@
   top: 0;
   height: 1px;
   background: linear-gradient(90deg,
-    transparent,
-    hsl(var(--primary)) 30%,
-    hsl(var(--primary)) 70%,
-    transparent
-  );
+      transparent,
+      hsl(var(--primary)) 30%,
+      hsl(var(--primary)) 70%,
+      transparent);
   opacity: 0;
   animation: scan-line 4s ease-in-out infinite;
 }
 
 /* ── Grain noise ──────────────────────────────────── */
 @keyframes grain {
-  0%, 100% { transform: translate(0, 0); }
-  10%      { transform: translate(-2%, -3%); }
-  30%      { transform: translate(3%, 2%); }
-  50%      { transform: translate(-1%, 3%); }
-  70%      { transform: translate(2%, -2%); }
-  90%      { transform: translate(-3%, 1%); }
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  10% {
+    transform: translate(-2%, -3%);
+  }
+
+  30% {
+    transform: translate(3%, 2%);
+  }
+
+  50% {
+    transform: translate(-1%, 3%);
+  }
+
+  70% {
+    transform: translate(2%, -2%);
+  }
+
+  90% {
+    transform: translate(-3%, 1%);
+  }
 }
+
 .animate-grain {
   animation: grain 8s steps(6) infinite;
 }
 
-/* ── Typing cursor (accent-colored, 1.2s blink) ──── */
-@keyframes typing-blink {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0; }
+/* ── Interactive accent ring (CSS-only) ───────────── */
+:where(a, button, [role='button'], summary) {
+  cursor: pointer;
 }
-.animate-typing-cursor {
-  animation: typing-blink 1.2s step-end infinite;
+
+:where(input, textarea, select) {
+  cursor: text;
+}
+
+:where(a, button, [role='button'], summary):where(:hover, :focus-visible) {
+  outline: 1px solid hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.3);
+  outline-offset: 3px;
+}
+
+:where(input, textarea, select):where(:focus-visible) {
+  outline: 1px solid hsla(var(--accent-h), var(--accent-s), var(--accent-l), 0.3);
+  outline-offset: 2px;
 }
