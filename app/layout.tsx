@@ -15,7 +15,7 @@ const jetbrainsMono = JetBrains_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "metsu.dev — Телеграм-боты, сайты и мини-аппы",
+  title: "metsu — Телеграм-боты, сайты и мини-аппы",
   description: "Телеграм-боты, сайты и мини-аппы для бизнеса, которому нужны результаты. Без менеджеров. Напрямую.",
 }
 

@@ -28,7 +28,7 @@ export function Footer() {
           </p>
         </div>
         <p className="mt-4 border-t border-border/50 pt-4 text-xs text-muted-foreground">
-          © 2025 <span className="text-primary">metsu.dev</span>. {t("Все права защищены.", "All rights reserved.")}
+          © 2025 <span className="text-primary">metsu</span>. {t("Все права защищены.", "All rights reserved.")}
         </p>
       </div>
     </footer>

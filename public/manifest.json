@@ -1,6 +1,6 @@
 {
-  "name": "metsu.dev",
-  "short_name": "metsu.dev",
+  "name": "metsu",
+  "short_name": "metsu",
   "description": "Telegram bots, websites & mini apps that bring clients, not just visuals.",
   "start_url": "/",
   "display": "standalone",
