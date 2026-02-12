@@ -23,7 +23,7 @@ export function FeatureStrip() {
       <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-background to-transparent" />
 
       {/* Marquee */}
-      <div className="animate-marquee flex whitespace-nowrap">
+      <div className="animate-marquee flex whitespace-nowrap" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
         {items.map((feature, i) => (
           <span
             key={`${feature}-${i}`}

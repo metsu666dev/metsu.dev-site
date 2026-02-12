@@ -1,9 +1,14 @@
 "use client"
 
 import { useEffect, useRef } from "react"
+import dynamic from "next/dynamic"
 import { Code, Rocket, Lightbulb, MessageSquare, Zap, Heart } from "lucide-react"
 import { useLang } from "@/components/language-provider"
-import { EnergySphere } from "@/components/energy-sphere"
+
+const EnergySphere = dynamic(
+    () => import("@/components/energy-sphere").then((m) => m.EnergySphere),
+    { ssr: false }
+)
 
 const STATS = [
     { icon: Code, valueRu: "6+", valueEn: "6+", labelRu: "проектов", labelEn: "projects" },

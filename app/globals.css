@@ -110,6 +110,8 @@
 
 .animate-marquee {
   animation: marquee 25s linear infinite;
+  will-change: transform;
+  transform: translateZ(0);
 }
 
 /* ── Fade in on scroll ────────────────────────────── */
@@ -127,6 +129,21 @@
 
 .animate-fade-in-up {
   animation: fade-in-up 0.7s ease-out forwards;
+  will-change: opacity, transform;
+  transform: translateZ(0);
+}
+
+/* ── Mobile: simplify scroll animation to opacity-only ── */
+@media (max-width: 767px) {
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
 }
 
 /* ── Cursor blink ─────────────────────────────────── */
@@ -194,6 +211,23 @@
 
 .animate-grain {
   animation: grain 8s steps(6) infinite;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* ── Reduced motion: stop all looping animations ──── */
+@media (prefers-reduced-motion: reduce) {
+
+  .animate-marquee,
+  .animate-blink,
+  .animate-grain,
+  .animate-bounce {
+    animation: none !important;
+  }
+
+  .brand-cursor::after {
+    animation: none !important;
+  }
 }
 
 /* ── Interactive accent ring (CSS-only) ───────────── */
